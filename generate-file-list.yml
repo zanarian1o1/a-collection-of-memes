@@ -1,0 +1,29 @@
+name: Generate File List
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  generate-file-list:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Generate file list
+        run: |
+          # Create a JSON file with the list of files
+          mkdir -p data
+          find media -type f | sed 's|^media/||' | jq -R . | jq -s . > data/fileList.json
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add data/fileList.json
+          git commit -m "Update file list"
+          git push
+        continue-on-error: true
