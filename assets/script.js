@@ -45,14 +45,23 @@ document.addEventListener('DOMContentLoaded', function () {
         modal.style.display = 'none';
     });
 
-    // List all files in the media folder (assuming your server or GitHub Pages serves these files)
-    const mediaFiles = [
-        'image1.jpg',
-        'image2.png',
-        'video1.mp4',
-        'video2.avi'
-    ];
+    // Fetch the files in the media folder using GitHub API
+    const repoOwner = 'your-username'; // replace with your GitHub username
+    const repoName = 'your-repo'; // replace with your repository name
+    const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/media`;
 
-    // Display all media
-    mediaFiles.forEach(media => displayMedia(media));
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (Array.isArray(data)) {
+                data.forEach(item => {
+                    if (item.type === 'file') {
+                        displayMedia(item.name);
+                    }
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching media files:', error);
+        });
 });
