@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media Library</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 0;
+    }
+    .media-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .media-item {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 10px;
+      text-align: center;
+      width: 150px;
+    }
+    .media-item img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
+    .media-item a {
+      text-decoration: none;
+      color: #333;
+      font-size: 14px;
+      display: block;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Media Library</h1>
+  <p>Browse the files from the "media" folder:</p>
+  <div id="media-container" class="media-container"></div>
+  
+  <script>
+    const mediaFolder = './media/'; // Path to the media folder
+
+    const fileList = [
+      // Add file paths relative to the media folder
+      'example1.jpg',
+      'example2.mp4',
+      'example3.pdf',
+      // Add more files here
+    ];
+
+    const container = document.getElementById('media-container');
+
+    fileList.forEach(file => {
+      const fileExtension = file.split('.').pop().toLowerCase();
+      const mediaItem = document.createElement('div');
+      mediaItem.classList.add('media-item');
+
+      let preview = '';
+      if (['jpg', 'jpeg', 'png', 'gif'].includes(fileExtension)) {
+        preview = `<img src="${mediaFolder + file}" alt="${file}">`;
+      } else if (['mp4', 'webm'].includes(fileExtension)) {
+        preview = `<video src="${mediaFolder + file}" controls width="100"></video>`;
+      } else {
+        preview = `<span>[File]</span>`;
+      }
+
+      mediaItem.innerHTML = `
+        ${preview}
+        <a href="${mediaFolder + file}" target="_blank">${file}</a>
+      `;
+
+      container.appendChild(mediaItem);
+    });
+  </script>
+</body>
+</html>
