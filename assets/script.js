@@ -46,9 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Fetch the files in the media folder using GitHub API
-    const repoOwner = 'zanarian1o1'; // replace with your GitHub username
-    const repoName = 'a-collection-of-memes'; // replace with your repository name
-    const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/media`;
+    const apiUrl = `https://github.com/zanarian1o1/a-collection-of-memes/main/media`;
 
     fetch(apiUrl)
         .then(response => response.json())
