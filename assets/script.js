@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Fetch the files in the media folder using GitHub API
-    const apiUrl = `https://github.com/zanarian1o1/a-collection-of-memes/main/media`;
+    const apiUrl = `https://api.github.com/repos/zanarian1o1/a-collection-of-memes/contents/media`;
 
     fetch(apiUrl)
         .then(response => response.json())
