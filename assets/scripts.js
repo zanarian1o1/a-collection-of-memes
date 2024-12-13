@@ -67,6 +67,16 @@ document.addEventListener('DOMContentLoaded', () => {
             video.src = `${MEDIA_FOLDER}${media}`;
             video.controls = true;
             video.classList.add('modal-content');
+
+            // Add fullscreen event listener to ensure correct aspect ratio
+            video.addEventListener('fullscreenchange', () => {
+                if (document.fullscreenElement) {
+                    video.style.objectFit = 'contain';
+                } else {
+                    video.style.objectFit = '';
+                }
+            });
+
             mediaContent.appendChild(video);
         }
 
