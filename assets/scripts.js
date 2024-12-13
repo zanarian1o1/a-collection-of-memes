@@ -1,65 +1,107 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const mediaFolder = 'media/';
+document.addEventListener('DOMContentLoaded', () => {
+    const MEDIA_FOLDER = 'media/';
+    const API_URL = 'https://api.github.com/repos/zanarian1o1/a-collection-of-memes/contents/media';
+
     const mediaListElement = document.querySelector('.media-list');
     const modal = document.getElementById('mediaModal');
     const closeModalButton = document.getElementById('closeModal');
     const mediaContent = document.getElementById('mediaContent');
 
-    // Function to display images and videos
+    /**
+     * Displays an individual media item (image or video) in the list.
+     * @param {string} media - The name of the media file.
+     */
     function displayMedia(media) {
         const mediaItem = document.createElement('div');
         mediaItem.classList.add('media-item');
 
-        if (media.endsWith('.jpg') || media.endsWith('.png') || media.endsWith('.jpeg')) {
-            // For images
+        if (isImage(media)) {
             const img = document.createElement('img');
-            img.src = `${mediaFolder}${media}`;
+            img.src = `${MEDIA_FOLDER}${media}`;
             img.alt = media;
             mediaItem.appendChild(img);
-        } else if (media.endsWith('.mp4') || media.endsWith('.avi') || media.endsWith('.mov')) {
-            // For videos
+        } else if (isVideo(media)) {
             const video = document.createElement('video');
-            video.src = `${mediaFolder}${media}`;
+            video.src = `${MEDIA_FOLDER}${media}`;
             video.controls = true;
             mediaItem.appendChild(video);
         }
 
-        // Add click event to show media in modal
         mediaItem.addEventListener('click', () => showModal(media));
-
         mediaListElement.appendChild(mediaItem);
     }
 
-    // Function to show modal with media content
+    /**
+     * Checks if a file is an image based on its extension.
+     * @param {string} fileName - The file name to check.
+     * @returns {boolean} - True if the file is an image.
+     */
+    function isImage(fileName) {
+        return /\.(jpg|jpeg|png)$/i.test(fileName);
+    }
+
+    /**
+     * Checks if a file is a video based on its extension.
+     * @param {string} fileName - The file name to check.
+     * @returns {boolean} - True if the file is a video.
+     */
+    function isVideo(fileName) {
+        return /\.(mp4|avi|mov)$/i.test(fileName);
+    }
+
+    /**
+     * Displays the media in a modal.
+     * @param {string} media - The name of the media file.
+     */
     function showModal(media) {
-        if (media.endsWith('.jpg') || media.endsWith('.png') || media.endsWith('.jpeg')) {
-            mediaContent.innerHTML = `<img src="media/${media}" alt="${media}" class="modal-content">`;
-        } else if (media.endsWith('.mp4') || media.endsWith('.avi') || media.endsWith('.mov')) {
-            mediaContent.innerHTML = `<video src="media/${media}" class="modal-content" controls></video>`;
+        mediaContent.innerHTML = '';
+
+        if (isImage(media)) {
+            const img = document.createElement('img');
+            img.src = `${MEDIA_FOLDER}${media}`;
+            img.alt = media;
+            img.classList.add('modal-content');
+            mediaContent.appendChild(img);
+        } else if (isVideo(media)) {
+            const video = document.createElement('video');
+            video.src = `${MEDIA_FOLDER}${media}`;
+            video.controls = true;
+            video.classList.add('modal-content');
+            mediaContent.appendChild(video);
         }
+
         modal.style.display = 'flex';
     }
 
-    // Close modal
-    closeModalButton.addEventListener('click', function () {
+    /**
+     * Closes the modal.
+     */
+    function closeModal() {
         modal.style.display = 'none';
-    });
+    }
 
-    // Fetch the files in the media folder using GitHub API
-    const apiUrl = `https://api.github.com/repos/zanarian1o1/a-collection-of-memes/contents/media`;
+    closeModalButton.addEventListener('click', closeModal);
 
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            if (Array.isArray(data)) {
-                data.forEach(item => {
-                    if (item.type === 'file') {
-                        displayMedia(item.name);
-                    }
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching media files:', error);
-        });
+    /**
+     * Fetches the list of media files from the GitHub API and displays them.
+     */
+    function fetchMedia() {
+        fetch(API_URL)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (Array.isArray(data)) {
+                    data.filter(item => item.type === 'file').forEach(item => displayMedia(item.name));
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching media files:', error);
+            });
+    }
+
+    fetchMedia();
 });
