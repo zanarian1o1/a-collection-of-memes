@@ -6,6 +6,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('mediaModal');
     const closeModalButton = document.getElementById('closeModal');
     const mediaContent = document.getElementById('mediaContent');
+    const themeToggleButton = document.createElement('button'); // Button to toggle theme
+
+    themeToggleButton.textContent = 'Toggle Dark Mode';
+    themeToggleButton.style.position = 'fixed';
+    themeToggleButton.style.top = '10px';
+    themeToggleButton.style.right = '10px';
+    themeToggleButton.style.padding = '10px';
+    themeToggleButton.style.fontSize = '16px';
+    themeToggleButton.style.cursor = 'pointer';
+    document.body.appendChild(themeToggleButton);
 
     /**
      * Displays an individual media item (image or video) in the list.
@@ -107,4 +117,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     fetchMedia();
+
+    /**
+     * Toggle between light and dark mode.
+     */
+    themeToggleButton.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        if (currentTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    });
 });
