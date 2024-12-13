@@ -1,20 +1,23 @@
-/* Basic Styles */
+/* Default Light Mode Styles */
+:root {
+    --background-color: #ffffff;
+    --text-color: #000000;
+    --modal-background: rgba(0, 0, 0, 0.8);
+    --modal-content-background: #fff;
+    --close-button-color: #000;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #000000;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    text-align: center;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
 }
 
 h1 {
-    color: #000;
+    color: var(--text-color);
 }
 
 .media-list {
@@ -46,7 +49,7 @@ h1 {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: var(--modal-background);
     justify-content: center;
     align-items: center;
 }
@@ -60,7 +63,7 @@ h1 {
     position: absolute;
     top: 10px;
     right: 25px;
-    color: #fff;
+    color: var(--close-button-color);
     font-size: 30px;
     font-weight: bold;
     cursor: pointer;
@@ -79,3 +82,11 @@ video:fullscreen {
     background: black; /* Ensures a clean fullscreen background */
 }
 
+/* Dark Mode Styles */
+[data-theme="dark"] {
+    --background-color: #000000;
+    --text-color: #ffffff;
+    --modal-background: rgba(0, 0, 0, 0.8);
+    --modal-content-background: #333;
+    --close-button-color: #fff;
+}
