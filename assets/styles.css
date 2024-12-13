@@ -1,7 +1,7 @@
 /* Default Light Mode Styles */
 :root {
-    --background-color: #ffffff;
-    --text-color: #000000;
+    --background-color: #000000;
+    --text-color: #ffffff;
     --modal-background: rgba(0, 0, 0, 0.8);
     --modal-content-background: #fff;
     --close-button-color: #000;
