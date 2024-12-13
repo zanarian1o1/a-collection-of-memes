@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function showModal(media) {
         mediaContent.innerHTML = '';
-
+    
         if (isImage(media)) {
             const img = document.createElement('img');
             img.src = `${MEDIA_FOLDER}${media}`;
@@ -68,10 +68,11 @@ document.addEventListener('DOMContentLoaded', () => {
             video.src = `${MEDIA_FOLDER}${media}`;
             video.controls = true;
             video.classList.add('modal-content');
-            video.style.objectFit = 'contain'; // Prevent clipping in fullscreen
+            video.style.objectFit = 'contain'; // Ensures proper scaling
+    
             mediaContent.appendChild(video);
         }
-
+    
         modal.style.display = 'flex';
     }
 
