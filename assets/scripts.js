@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const video = document.createElement('video');
             video.src = `${MEDIA_FOLDER}${media}`;
             video.controls = true;
+            video.style.objectFit = 'contain'; // Ensure proper scaling by default
             mediaItem.appendChild(video);
         }
 
@@ -67,13 +68,13 @@ document.addEventListener('DOMContentLoaded', () => {
             video.src = `${MEDIA_FOLDER}${media}`;
             video.controls = true;
             video.classList.add('modal-content');
+            video.style.objectFit = 'contain'; // Prevent clipping in fullscreen
 
-            // Add fullscreen event listener to ensure correct aspect ratio
             video.addEventListener('fullscreenchange', () => {
                 if (document.fullscreenElement) {
                     video.style.objectFit = 'contain';
                 } else {
-                    video.style.objectFit = '';
+                    video.style.objectFit = 'contain';
                 }
             });
 
