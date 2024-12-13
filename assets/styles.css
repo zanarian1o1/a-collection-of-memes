@@ -69,9 +69,13 @@ h1 {
 video {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Default for gallery display */
+    object-fit: cover; /* Default for the gallery display */
 }
 
 video:fullscreen {
-    object-fit: contain; /* Ensure no clipping in fullscreen */
+    object-fit: contain; /* Scale video to fit within the screen */
+    display: block;
+    margin: auto;
+    background: black; /* Ensures a clean fullscreen background */
 }
+
