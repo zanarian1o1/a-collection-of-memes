@@ -69,15 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
             video.controls = true;
             video.classList.add('modal-content');
             video.style.objectFit = 'contain'; // Prevent clipping in fullscreen
-
-            video.addEventListener('fullscreenchange', () => {
-                if (document.fullscreenElement) {
-                    video.style.objectFit = 'contain';
-                } else {
-                    video.style.objectFit = 'contain';
-                }
-            });
-
             mediaContent.appendChild(video);
         }
 
