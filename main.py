@@ -189,4 +189,4 @@ async def freaky_command(ctx):
     user_name = ctx.author.name  # Get the name of the user who sent the command
     await ctx.send(f"Why the hell do you want this command {user_name}?")
 
-bot.run('MTMxNTk2MDQ4ODkxMTQ0MTk1MA.GzFOvW.JSSgJkkRCDcp7D2-JQdHVeFWDGOI3hawxNDBAo') # Replace with your actual bot token
+bot.run('bot token') # Replace with your actual bot token
